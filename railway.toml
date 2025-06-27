@@ -2,28 +2,4 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT"
-healthcheckPath = "/health"
-healthcheckTimeout = 300
-restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 10
-
-[deploy.envs]
-PYTHON_VERSION = "3.9"
-NODE_VERSION = "18"
-
-# Backend environment variables
-MONGODB_URL = "{{.Database.DATABASE_URL}}"
-DATABASE_NAME = "deepfake_detection"
-API_HOST = "0.0.0.0"
-DEBUG = "False"
-SECRET_KEY = "{{.Secret.SECRET_KEY}}"
-CORS_ORIGINS = "*"
-MAX_FILE_SIZE = "104857600"
-UPLOAD_DIR = "./uploads"
-MODEL_CACHE_DIR = "./ml_models"
-HUGGINGFACE_CACHE_DIR = "./cache"
-
-# Frontend environment variables
-REACT_APP_API_URL = "{{.Service.BACKEND_URL}}"
-REACT_APP_ENVIRONMENT = "production" 
+startCommand = "cd backend && python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT" 
