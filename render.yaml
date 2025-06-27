@@ -3,7 +3,7 @@ services:
   - type: web
     name: deepfake-backend
     env: python
-    plan: free
+    plan: starter
     buildCommand: |
       cd backend
       pip install -r requirements.txt
@@ -38,7 +38,7 @@ services:
   - type: web
     name: deepfake-frontend
     env: static
-    plan: free
+    plan: starter
     buildCommand: |
       cd frontend
       npm install
@@ -53,4 +53,4 @@ services:
 databases:
   - name: deepfake-mongodb
     databaseName: deepfake_detection
-    plan: free 
+    plan: starter 
