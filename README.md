@@ -53,69 +53,12 @@ A comprehensive full-stack system for detecting deepfake images, videos, and aud
 - **Grafana** - Visualization
 - **GitHub Actions** - CI/CD
 
-## 📦 Quick Start
-
-### Prerequisites
-- Python 3.9+
-- Node.js 16+
-- MongoDB
-- Docker (optional)
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/yourusername/deepfake-detection-system.git
-cd deepfake-detection-system
-```
-
-### 2. Automated Setup
-```bash
-# Run the complete setup script
-chmod +x setup_all.sh
-./setup_all.sh
-```
-
-### 3. Manual Setup (Alternative)
-
-#### Backend Setup
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-#### Frontend Setup
-```bash
-cd frontend
-npm install
-```
-
-#### Database Setup
-```bash
-# Install MongoDB (macOS)
-brew install mongodb-community@6.0
-brew services start mongodb-community@6.0
-
-# Or use Docker
-docker run -d -p 27017:27017 --name mongodb mongo:6.0
-```
-
-### 4. Start Services
-```bash
-# Start all services
-./start_servers.sh
-
-# Or start individually
-./start_backend.sh
-./start_frontend.sh
-```
 
 ### 5. Access the Application
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000
 - **API Docs**: http://localhost:8000/docs
 - **Monitoring**: http://localhost:9090 (Prometheus)
-
 
 
 ## 🤖 AI Models
@@ -134,6 +77,7 @@ docker run -d -p 27017:27017 --name mongodb mongo:6.0
 - **Spectral Analysis**: MFCC, spectral centroid, rolloff
 - **Phase Analysis**: Phase consistency and discontinuities
 - **Artifact Detection**: Audio compression and manipulation artifacts
+
 
 ## 📈 Monitoring & Analytics
 
