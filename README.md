@@ -114,9 +114,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **v1.3.0** - Production deployment support
 
 ---
+**Made with ❤️ for a safer digital world** 
+
+<img width="1710" alt="Screenshot 2025-06-27 at 3 01 43 PM" src="https://github.com/user-attachments/assets/a87c9716-f58f-4874-8658-eb3b1e768ac6" />
+<img width="1710" alt="Screenshot 2025-06-27 at 3 01 43 PM" src="https://github.com/user-attachments/assets/38e45c67-57fd-4089-adfa-e3536a802425" />
+<img width="1710" alt="Screenshot 2025-06-27 at 3 01 51 PM" src="https://github.com/user-attachments/assets/9b64c76c-dcfb-4c28-8c4a-784d3fdef937" />
+
 <img width="1710" alt="Screenshot 2025-06-27 at 3 01 53 PM" src="https://github.com/user-attachments/assets/9be7d6be-42f7-4939-8310-f22cfdc49e25" />
 
-**Made with ❤️ for a safer digital world** 
+
 
 
 
