@@ -114,5 +114,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **v1.3.0** - Production deployment support
 
 ---
+<img width="1710" alt="Screenshot 2025-06-27 at 3 01 53 PM" src="https://github.com/user-attachments/assets/9be7d6be-42f7-4939-8310-f22cfdc49e25" />
 
 **Made with ❤️ for a safer digital world** 
+
+
+
