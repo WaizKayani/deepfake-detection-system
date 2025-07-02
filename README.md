@@ -1,8 +1,8 @@
-# 🤖 AI-Powered Deepfake Detection & Media Authentication System
+# AI-Powered Deepfake Detection & Media Authentication System
 
 A comprehensive full-stack system for detecting deepfake images, videos, and audio using advanced AI models and traditional computer vision techniques.
 
-## 🚀 Features
+## Features
 
 - **Multi-Modal Detection**: Images, videos, and audio analysis
 - **Real AI Models**: Hugging Face integration with ResNet-50 and custom heuristics
@@ -15,7 +15,7 @@ A comprehensive full-stack system for detecting deepfake images, videos, and aud
 - **Docker Support**: Containerized deployment
 - **CI/CD Ready**: GitHub Actions workflow
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
@@ -31,7 +31,7 @@ A comprehensive full-stack system for detecting deepfake images, videos, and aud
                         └─────────────────┘
 ```
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Backend
 - **FastAPI** - Modern Python web framework
@@ -61,7 +61,7 @@ A comprehensive full-stack system for detecting deepfake images, videos, and aud
 - **Monitoring**: http://localhost:9090 (Prometheus)
 
 
-## 🤖 AI Models
+## AI Models
 
 ### Image Analysis
 - **Hugging Face ResNet-50**: Pre-trained model with custom heuristics
@@ -79,7 +79,7 @@ A comprehensive full-stack system for detecting deepfake images, videos, and aud
 - **Artifact Detection**: Audio compression and manipulation artifacts
 
 
-## 📈 Monitoring & Analytics
+## Monitoring & Analytics
 
 ### Prometheus Metrics
 - Request rates and response times
@@ -94,11 +94,11 @@ A comprehensive full-stack system for detecting deepfake images, videos, and aud
 - System health monitoring
 
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Hugging Face for pre-trained models
 - OpenCV for computer vision capabilities
@@ -106,7 +106,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - React and Tailwind CSS for the frontend
 
 
-## 🔄 Version History
+## Version History
 
 - **v1.0.0** - Initial release with basic deepfake detection
 - **v1.1.0** - Added video and audio analysis
