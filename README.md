@@ -54,7 +54,7 @@ A comprehensive full-stack system for detecting deepfake images, videos, and aud
 - **GitHub Actions** - CI/CD
 
 
-### 5. Access the Application
+### Access the Application (for me)
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000
 - **API Docs**: http://localhost:8000/docs
