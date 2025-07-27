@@ -38,6 +38,6 @@ services:
     staticPublishPath: ./frontend/build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://deepfake-backend.onrender.com
+        value: https://deepfake-detection-and-media.onrender.com
       - key: REACT_APP_ENVIRONMENT
         value: production 
