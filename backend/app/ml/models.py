@@ -17,7 +17,7 @@ from transformers import AutoImageProcessor, AutoModelForImageClassification
 import librosa
 import soundfile as sf
 from scipy import signal
-import face_recognition
+import mediapipe as mp
 import uuid
 
 from app.core.database import AnalysisResult
@@ -216,25 +216,44 @@ class RealImageModel:
         """Extract visual cues for deepfake detection."""
         cues = []
         try:
-            # Face detection
-            image = face_recognition.load_image_file(image_path)
-            face_locations = face_recognition.face_locations(image)
+            # Face detection using MediaPipe
+            mp_face_detection = mp.solutions.face_detection
+            mp_drawing = mp.solutions.drawing_utils
             
-            if len(face_locations) > 0:
-                cues.append(f"Detected {len(face_locations)} face(s)")
+            # Load image
+            image = cv2.imread(image_path)
+            if image is None:
+                cues.append("Could not load image")
+                return cues
+            
+            # Convert BGR to RGB
+            image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            
+            with mp_face_detection.FaceDetection(
+                model_selection=0, min_detection_confidence=0.5
+            ) as face_detection:
+                results = face_detection.process(image_rgb)
                 
-                # Analyze each face
-                for i, face_location in enumerate(face_locations):
-                    top, right, bottom, left = face_location
-                    face_image = image[top:bottom, left:right]
+                if results.detections:
+                    cues.append(f"Detected {len(results.detections)} face(s)")
                     
-                    # Check for face artifacts
-                    if self._check_face_artifacts(face_image):
-                        cues.append(f"Face {i+1}: Potential artifacts detected")
-                    else:
-                        cues.append(f"Face {i+1}: No obvious artifacts")
-            else:
-                cues.append("No faces detected")
+                    # Analyze each face
+                    for i, detection in enumerate(results.detections):
+                        bboxC = detection.location_data.relative_bounding_box
+                        ih, iw, _ = image.shape
+                        x, y, w, h = int(bboxC.xmin * iw), int(bboxC.ymin * ih), \
+                                   int(bboxC.width * iw), int(bboxC.height * ih)
+                        
+                        # Extract face region
+                        face_image = image[y:y+h, x:x+w]
+                        
+                        # Check for face artifacts
+                        if self._check_face_artifacts(face_image):
+                            cues.append(f"Face {i+1}: Potential artifacts detected")
+                        else:
+                            cues.append(f"Face {i+1}: No obvious artifacts")
+                else:
+                    cues.append("No faces detected")
                 
         except Exception as e:
             cues.append("Face analysis failed")
@@ -508,26 +527,39 @@ class ImageProcessor:
             raise
     
     def extract_faces(self, image_path: str) -> List[Dict[str, Any]]:
-        """Extract faces from image using face_recognition."""
+        """Extract faces from image using MediaPipe."""
         try:
             # Load image
-            image = face_recognition.load_image_file(image_path)
+            image = cv2.imread(image_path)
+            if image is None:
+                return []
             
-            # Detect faces
-            face_locations = face_recognition.face_locations(image)
-            face_encodings = face_recognition.face_encodings(image, face_locations)
+            # Convert BGR to RGB
+            image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             
-            face_data = []
-            for i, (location, encoding) in enumerate(zip(face_locations, face_encodings)):
-                top, right, bottom, left = location
-                face_data.append({
-                    "bbox": [left, top, right - left, bottom - top],
-                    "confidence": 0.9,
-                    "encoding": encoding.tolist(),
-                    "face_id": i
-                })
+            # Face detection using MediaPipe
+            mp_face_detection = mp.solutions.face_detection
             
-            return face_data
+            with mp_face_detection.FaceDetection(
+                model_selection=0, min_detection_confidence=0.5
+            ) as face_detection:
+                results = face_detection.process(image_rgb)
+                
+                face_data = []
+                for i, detection in enumerate(results.detections):
+                    bboxC = detection.location_data.relative_bounding_box
+                    ih, iw, _ = image.shape
+                    x, y, w, h = int(bboxC.xmin * iw), int(bboxC.ymin * ih), \
+                               int(bboxC.width * iw), int(bboxC.height * ih)
+                    
+                    face_data.append({
+                        "bbox": [x, y, w, h],
+                        "confidence": detection.score[0],
+                        "encoding": [],  # MediaPipe doesn't provide encodings like face_recognition
+                        "face_id": i
+                    })
+                
+                return face_data
             
         except Exception as e:
             logger.error("Failed to extract faces", error=str(e), image_path=image_path)
@@ -607,18 +639,28 @@ class VideoProcessor:
                 next_faces = face_data[i + 1]
                 
                 if current_faces and next_faces:
-                    # Compare face encodings
+                    # Compare face positions and sizes (simplified approach)
                     for curr_face in current_faces:
                         for next_face in next_faces:
-                            distance = face_recognition.face_distance(
-                                [curr_face["encoding"]], 
-                                next_face["encoding"]
-                            )[0]
+                            # Simple position-based consistency check
+                            curr_bbox = curr_face["bbox"]
+                            next_bbox = next_face["bbox"]
                             
-                            if distance < 0.6:  # Same person
-                                consistency_scores.append(1.0 - distance)
+                            # Calculate center positions
+                            curr_center = (curr_bbox[0] + curr_bbox[2]/2, curr_bbox[1] + curr_bbox[3]/2)
+                            next_center = (next_bbox[0] + next_bbox[2]/2, next_bbox[1] + next_bbox[3]/2)
+                            
+                            # Calculate distance between centers
+                            distance = ((curr_center[0] - next_center[0])**2 + 
+                                      (curr_center[1] - next_center[1])**2)**0.5
+                            
+                            # Normalize by image size (assuming similar image sizes)
+                            normalized_distance = distance / 100  # Simple normalization
+                            
+                            if normalized_distance < 0.5:  # Similar position
+                                consistency_scores.append(1.0 - normalized_distance)
                             else:
-                                artifacts.append(f"Face inconsistency at frame {i}")
+                                artifacts.append(f"Face position inconsistency at frame {i}")
                 
                 # Clean up frame files
                 os.remove(frames[i])

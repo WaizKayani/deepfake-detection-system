@@ -16,10 +16,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements first for better caching
-COPY backend/requirements.txt .
+COPY backend/requirements-simple.txt ./requirements.txt
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies with torch CPU version
+RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu -r requirements.txt
 
 # Copy application code
 COPY backend/ .
