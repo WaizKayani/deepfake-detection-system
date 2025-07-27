@@ -4,7 +4,7 @@ services:
     name: deepfake-backend
     env: docker
     plan: free
-    dockerfilePath: ./backend/Dockerfile
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: MONGODB_URI
         value: mongodb+srv://WaizKayani:Ishfaq4399@deepfakedetection.emo9lif.mongodb.net/deepfake_detection?retryWrites=true&w=majority&appName=DeepfakeDetection
