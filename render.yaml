@@ -3,7 +3,7 @@ services:
   - type: web
     name: deepfake-backend
     env: python
-    plan: starter
+    plan: free
     buildCommand: |
       cd backend
       pip install -r requirements.txt
@@ -36,7 +36,7 @@ services:
   - type: web
     name: deepfake-frontend
     env: static
-    plan: starter
+    plan: free
     buildCommand: |
       cd frontend
       npm install
