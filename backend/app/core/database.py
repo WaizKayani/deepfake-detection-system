@@ -53,7 +53,14 @@ async def init_db():
     global client, database
     
     try:
-        client = AsyncIOMotorClient(settings.MONGODB_URI)
+        # Create client with SSL configuration
+        client = AsyncIOMotorClient(
+            settings.MONGODB_URI,
+            tls=True,
+            tlsAllowInvalidCertificates=False,
+            serverSelectionTimeoutMS=5000,
+            connectTimeoutMS=10000
+        )
         database = client[settings.DATABASE_NAME]
         
         # Test connection
