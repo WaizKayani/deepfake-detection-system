@@ -73,6 +73,22 @@ class Settings(BaseSettings):
 # Create settings instance
 settings = Settings()
 
+# Debug: Print MongoDB URI (without password for security)
+mongo_uri_debug = settings.MONGODB_URI
+if "@" in mongo_uri_debug:
+    # Mask password in debug output
+    parts = mongo_uri_debug.split("@")
+    if len(parts) == 2:
+        user_pass = parts[0].split("//")[1] if "//" in parts[0] else parts[0]
+        if ":" in user_pass:
+            user = user_pass.split(":")[0]
+            mongo_uri_debug = f"mongodb+srv://{user}:***@{parts[1]}"
+else:
+    mongo_uri_debug = mongo_uri_debug
+
+print(f"DEBUG: MongoDB URI = {mongo_uri_debug}")
+print(f"DEBUG: Environment MONGODB_URI = {os.getenv('MONGODB_URI', 'NOT_SET')}")
+
 # Ensure upload directory exists
 os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
 os.makedirs(os.path.join(settings.UPLOAD_DIR, "images"), exist_ok=True)
