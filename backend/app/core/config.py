@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     
     # CORS Configuration
-    CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    CORS_ORIGINS: List[str] = ["https://deepfake-frontend-fh35.onrender.com", "https://deepfake-frontend.onrender.com", "http://localhost:3000", "http://127.0.0.1:3000"]
     
     # Database Configuration
     MONGODB_URI: str = "mongodb://localhost:27017"
