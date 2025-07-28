@@ -30,7 +30,8 @@ RUN mkdir -p /tmp/uploads/images /tmp/uploads/videos /tmp/uploads/audio /tmp/upl
     chmod -R 755 /tmp/uploads
 
 # Create non-root user
-RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app && \
+    chown -R appuser:appuser /tmp/uploads
 USER appuser
 
 # Expose port
