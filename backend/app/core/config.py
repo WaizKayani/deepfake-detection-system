@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     
     # File Upload Configuration
     MAX_FILE_SIZE: int = 100 * 1024 * 1024  # 100MB
-    UPLOAD_DIR: str = "./uploads"
+    UPLOAD_DIR: str = "/tmp/uploads"  # Use /tmp for Render compatibility
     ALLOWED_IMAGE_EXTENSIONS: List[str] = [".jpg", ".jpeg", ".png", ".bmp", ".tiff"]
     ALLOWED_VIDEO_EXTENSIONS: List[str] = [".mp4", ".avi", ".mov", ".mkv", ".webm"]
     ALLOWED_AUDIO_EXTENSIONS: List[str] = [".wav", ".mp3", ".flac", ".m4a", ".aac"]

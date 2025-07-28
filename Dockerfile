@@ -26,7 +26,8 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 COPY backend/ .
 
 # Create necessary directories
-RUN mkdir -p uploads/images uploads/videos uploads/audio uploads/temp ml_models
+RUN mkdir -p /tmp/uploads/images /tmp/uploads/videos /tmp/uploads/audio /tmp/uploads/temp ml_models && \
+    chmod -R 755 /tmp/uploads
 
 # Create non-root user
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app

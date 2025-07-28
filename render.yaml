@@ -21,7 +21,7 @@ services:
       - key: MAX_FILE_SIZE
         value: 104857600
       - key: UPLOAD_DIR
-        value: ./uploads
+        value: /tmp/uploads
       - key: MODEL_CACHE_DIR
         value: ./ml_models
       - key: HUGGINGFACE_CACHE_DIR
