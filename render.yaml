@@ -7,7 +7,7 @@ services:
     dockerfilePath: ./Dockerfile
     envVars:
       - key: MONGODB_URI
-        value: mongodb+srv://WaizKayani:Ishfaq4399@deepfakedetection.emo9lif.mongodb.net/deepfake_detection?retryWrites=true&w=majority&appName=DeepfakeDetection
+        value: "mongodb+srv://WaizKayani:Ishfaq4399@deepfakedetection.emo9lif.mongodb.net/deepfake_detection?retryWrites=true&w=majority&appName=DeepfakeDetection"
       - key: DATABASE_NAME
         value: deepfake_detection
       - key: API_HOST
