@@ -44,12 +44,27 @@ def get_upload_path(file_type: str, filename: str) -> str:
 async def save_uploaded_file(file: UploadFile, file_path: str) -> bool:
     """Save uploaded file to disk."""
     try:
+        # Check if directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        
+        # Check write permissions
+        if not os.access(os.path.dirname(file_path), os.W_OK):
+            logger.error("No write permission for directory", directory=os.path.dirname(file_path))
+            return False
+            
         async with aiofiles.open(file_path, 'wb') as f:
             content = await file.read()
             await f.write(content)
+            
+        # Verify file was written
+        if not os.path.exists(file_path):
+            logger.error("File was not created", file_path=file_path)
+            return False
+            
+        logger.info("File saved successfully", file_path=file_path, size=len(content))
         return True
     except Exception as e:
-        logger.error("Failed to save uploaded file", error=str(e), file_path=file_path)
+        logger.error("Failed to save uploaded file", error=str(e), file_path=file_path, error_type=type(e).__name__)
         return False
 
 
