@@ -56,7 +56,7 @@ const Upload = () => {
         const formData = new FormData();
         formData.append('file', file);
 
-        const uploadResponse = await axios.post('http://localhost:8000/api/v1/', formData, {
+        const uploadResponse = await axios.post(`${process.env.REACT_APP_API_URL}/api/v1/`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -79,7 +79,7 @@ const Upload = () => {
 
         while (attempts < maxAttempts) {
           try {
-            analysisResponse = await axios.get(`http://localhost:8000/api/v1/${fileId}`);
+            analysisResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/v1/${fileId}`);
             
             // Update status to show completion
             setAnalysisStatus(prev => ({

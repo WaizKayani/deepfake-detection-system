@@ -17,11 +17,11 @@ const History = () => {
       setLoading(true);
       
       // Fetch analysis logs
-      const analysisResponse = await axios.get('http://localhost:8000/api/v1/logs/?limit=20');
+      const analysisResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/v1/logs/?limit=20`);
       setAnalysisLogs(analysisResponse.data.logs);
 
       // Fetch system logs
-      const systemResponse = await axios.get('http://localhost:8000/api/v1/logs/?limit=20');
+      const systemResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/v1/logs/?limit=20`);
       setSystemLogs(systemResponse.data.logs);
 
     } catch (err) {

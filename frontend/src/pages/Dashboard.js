@@ -21,7 +21,7 @@ const Dashboard = () => {
       setLoading(true);
       
       // Fetch logs for recent activity
-      const logsResponse = await axios.get('http://localhost:8000/api/v1/logs/?limit=5');
+      const logsResponse = await axios.get(`${process.env.REACT_APP_API_URL}/api/v1/logs/?limit=5`);
       setRecentActivity(logsResponse.data.logs);
 
       // For now, we'll use mock stats since we don't have a dedicated stats endpoint
